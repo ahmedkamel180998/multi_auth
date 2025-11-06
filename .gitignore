@@ -13,6 +13,7 @@
 /.zed
 /auth.json
 /node_modules
+public/assets
 /public/build
 /public/hot
 /public/storage
@@ -22,7 +23,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-
 # Project exclude paths
 /storage/app/
 /storage/framework/
