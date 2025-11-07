@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 // Frontend
 Route::prefix('frontend')->name('frontend.')->group(function () {
-    Route::get('/', FrontHomeController::class)->name('home');
+    Route::get('/', FrontHomeController::class)->name('home')->middleware('auth');
     Route::view('/login', 'frontend.auth.login')->name('auth.login');
     Route::view('/register', 'frontend.auth.register')->name('auth.register');
     Route::view('/forget-password', 'frontend.auth.forget-password')->name('auth.forget-password');

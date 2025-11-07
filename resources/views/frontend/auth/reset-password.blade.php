@@ -1,45 +1,42 @@
 @extends('frontend.auth.master')
 
-@section('title', 'Register')
+@section('title', 'Reset Password')
 
 @section('content')
     <!-- Content -->
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner">
-                <!-- Register Card -->
+            <div class="authentication-inner py-4">
+                <!-- Reset Password -->
                 <div class="card">
                     <div class="card-body">
                         @include('frontend.partials.logo')
 
-                        <h4 class="mb-2">Adventure starts here 🚀</h4>
-                        <p class="mb-4">Make your app management easy and fun!</p>
+                        <h4 class="mb-2">Reset Password</h4>
+                        <p class="mb-4">Enter your credentials to reset your password</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('password.store') }}" method="POST">
                             @csrf
-                            <!-- Name -->
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        id="name"
-                                        name="name"
-                                        value="{{ old('name')}} "
-                                        placeholder="Enter your username"
-                                        autofocus
-                                        autocomplete="name"
-                                />
-                                <x-input-error :messages="$errors->get('name')" class="mt-2"/>
-                            </div>
+
+                            <!-- Password Reset Token -->
+                            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
                             <!-- Email Address -->
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email"
-                                       value="{{ old('email') }}" placeholder="Enter your email"
-                                       required autocomplete="username"/>
+                                <input
+                                        type="email"
+                                        class="form-control"
+                                        id="email"
+                                        name="email"
+                                        value="{{ $request->email }}"
+                                        placeholder="Enter your email"
+                                        required
+                                        autofocus
+                                />
                                 <x-input-error :messages="$errors->get('email')" class="mt-2"/>
                             </div>
+
                             <!-- Password -->
                             <div class="mb-3 form-password-toggle">
                                 <label class="form-label" for="password">Password</label>
@@ -57,6 +54,7 @@
                                     <x-input-error :messages="$errors->get('password')" class="mt-2"/>
                                 </div>
                             </div>
+
                             <!-- Confirm Password -->
                             <div class="mb-3 form-password-toggle">
                                 <label class="form-label" for="password_confirmation">Confirm Password</label>
@@ -74,30 +72,13 @@
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
                                 </div>
                             </div>
-
-                            <!-- <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms"/>
-                                    <label class="form-check-label" for="terms-conditions">
-                                        I agree to
-                                        <a href="javascript:void(0);">privacy policy & terms</a>
-                                    </label>
-                                </div>
-                            </div> -->
-                            <button class="btn btn-primary d-grid w-100">Sign up</button>
+                            <button class="btn btn-primary d-grid w-100">Reset Password</button>
                         </form>
-
-                        <p class="text-center">
-                            <span>Already have an account?</span>
-                            <a href="{{ route('frontend.auth.login') }}">
-                                <span>Sign in instead</span>
-                            </a>
-                        </p>
                     </div>
                 </div>
-                <!-- Register Card -->
+                <!-- Reset Password -->
             </div>
         </div>
     </div>
-    <!-- / Content -->
+    <!-- Content -->
 @endsection
