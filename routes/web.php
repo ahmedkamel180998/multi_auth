@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Back\AdminController;
 use App\Http\Controllers\Back\BackHomeController;
+use App\Http\Controllers\Back\RoleController;
+use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Front\FrontHomeController;
 use App\Http\Controllers\Front\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +18,13 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
 // Backend
 Route::prefix('backend')->name('backend.')->group(function () {
     Route::get('/', BackHomeController::class)->name('home')->middleware('admin');
+
+    // Admins
+    Route::resource('admins', AdminController::class);
+    // Users
+    Route::resource('users', UserController::class);
+    // Roles
+    Route::resource('roles', RoleController::class);
 
     require __DIR__.'/admin_auth.php';
 });
