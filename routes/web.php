@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Back\BackHomeController;
-use App\Http\Controllers\FrontHomeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend
