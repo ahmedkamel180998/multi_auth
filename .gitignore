@@ -27,3 +27,6 @@ Thumbs.db
 /storage/app/
 /storage/framework/
 .claude
+.junie
+.cursor
+CLAUDE.md
