@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UpdateEmailNotification extends Notification
+class AdminResetPassword extends Notification
 {
     use Queueable;
 
@@ -40,7 +40,7 @@ class UpdateEmailNotification extends Notification
             ->view('emails.reset_password', [
                 'user' => $notifiable,
                 'token' => $this->token,
-                'url' => url('frontend/reset-password/'.$this->token.'?email='.urlencode($notifiable->email)),
+                'url' => url('backend/reset-password/'.$this->token.'?email='.urlencode($notifiable->email)),
             ]);
     }
 
