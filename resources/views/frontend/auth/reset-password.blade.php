@@ -1,6 +1,6 @@
 @extends('frontend.auth.master')
 
-@section('title', 'Reset Password')
+@section('title', 'Frontend - Reset Password')
 
 @section('content')
     <!-- Content -->
@@ -15,7 +15,8 @@
                         <h4 class="mb-2">Reset Password</h4>
                         <p class="mb-4">Enter your credentials to reset your password</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ route('password.store') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('frontend.password.store') }}"
+                              method="POST">
                             @csrf
 
                             <!-- Password Reset Token -->

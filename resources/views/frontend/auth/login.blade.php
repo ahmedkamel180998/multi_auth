@@ -1,6 +1,6 @@
 @extends('frontend.auth.master')
 
-@section('title', 'Login In')
+@section('title', 'Frontend - Login In')
 
 @section('content')
     <!-- Content -->
@@ -17,7 +17,8 @@
                         <!-- Session Status -->
                         <x-auth-session-status class="mb-4" :status="session('status')"/>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('frontend.login.store') }}"
+                              method="POST">
                             @csrf
                             <!-- Email Address -->
                             <div class="mb-3">
@@ -39,7 +40,7 @@
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
-                                    <a href="{{ route('frontend.auth.forget-password') }}">
+                                    <a href="{{ route('frontend.password.request') }}">
                                         <small>Forgot Password?</small>
                                     </a>
                                 </div>
@@ -75,7 +76,7 @@
                         <!-- Register if you don't have an account -->
                         <p class="text-center">
                             <span>New on our platform?</span>
-                            <a href="{{ route('frontend.auth.register') }}">
+                            <a href="{{ route('frontend.register') }}">
                                 <span>Create an account</span>
                             </a>
                         </p>

@@ -88,17 +88,17 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="{{ route('frontend.auth.login') }}" class="menu-link" target="_blank">
+                    <a href="{{ route('frontend.login') }}" class="menu-link" target="_blank">
                         <div data-i18n="Basic">Login</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('frontend.auth.register') }}" class="menu-link" target="_blank">
+                    <a href="{{ route('frontend.register') }}" class="menu-link" target="_blank">
                         <div data-i18n="Basic">Register</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('frontend.auth.forget-password') }}" class="menu-link" target="_blank">
+                    <a href="{{ route('frontend.password.request') }}" class="menu-link" target="_blank">
                         <div data-i18n="Basic">Forgot Password</div>
                     </a>
                 </li>

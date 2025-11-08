@@ -1,6 +1,6 @@
 @extends('frontend.auth.master')
 
-@section('title', 'Forget Password')
+@section('title', 'Frontend - Forget Password')
 
 @section('content')
     <!-- Content -->
@@ -17,7 +17,8 @@
 
                         <!-- Session Status -->
                         <x-auth-session-status class="mb-4" :status="session('status')"/>
-                        <form id="formAuthentication" class="mb-3" action="{{ route('password.email') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('frontend.password.email') }}"
+                              method="POST">
                             @csrf
                             <!-- Email Address -->
                             <div class="mb-3">
@@ -37,7 +38,7 @@
                             <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
                         </form>
                         <div class="text-center">
-                            <a href="{{ route('frontend.auth.login') }}"
+                            <a href="{{ route('frontend.login') }}"
                                class="d-flex align-items-center justify-content-center">
                                 <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
                                 Back to login

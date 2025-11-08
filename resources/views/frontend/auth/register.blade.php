@@ -1,6 +1,6 @@
 @extends('frontend.auth.master')
 
-@section('title', 'Register')
+@section('title', 'Frontend - Register')
 
 @section('content')
     <!-- Content -->
@@ -15,7 +15,8 @@
                         <h4 class="mb-2">Adventure starts here 🚀</h4>
                         <p class="mb-4">Make your app management easy and fun!</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('frontend.register.store') }}"
+                              method="POST">
                             @csrf
                             <!-- Name -->
                             <div class="mb-3">
@@ -74,22 +75,12 @@
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
                                 </div>
                             </div>
-
-                            <!-- <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms"/>
-                                    <label class="form-check-label" for="terms-conditions">
-                                        I agree to
-                                        <a href="javascript:void(0);">privacy policy & terms</a>
-                                    </label>
-                                </div>
-                            </div> -->
                             <button class="btn btn-primary d-grid w-100">Sign up</button>
                         </form>
 
                         <p class="text-center">
                             <span>Already have an account?</span>
-                            <a href="{{ route('frontend.auth.login') }}">
+                            <a href="{{ route('frontend.login') }}">
                                 <span>Sign in instead</span>
                             </a>
                         </p>
