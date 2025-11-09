@@ -20,11 +20,11 @@ Route::prefix('backend')->name('backend.')->group(function () {
     Route::get('/', BackHomeController::class)->name('home')->middleware('admin');
 
     // Admins
-    Route::resource('admins', AdminController::class);
+    Route::resource('admins', AdminController::class)->only(['index', 'store', 'update', 'destroy']);
     // Users
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->only(['index', 'store', 'update', 'destroy']);
     // Roles
-    Route::resource('roles', RoleController::class);
+    Route::resource('roles', RoleController::class)->only(['index', 'store', 'update', 'destroy']);
 
     require __DIR__.'/admin_auth.php';
 });
