@@ -7,10 +7,11 @@ use App\Notifications\AdminVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use HasRoles, Notifiable;
 
     public function sendPasswordResetNotification($token): void
     {

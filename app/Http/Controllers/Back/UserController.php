@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -17,6 +19,8 @@ class UserController extends Controller
      */
     public function index(): View
     {
+        Gate::forUser(Auth::guard('admin')->user())->authorize('show_user');
+
         $users = User::latest()->get();
 
         return view('backend.users', compact('users'));
@@ -27,6 +31,8 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        Gate::forUser(Auth::guard('admin')->user())->authorize('add_user');
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -47,6 +53,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user): RedirectResponse
     {
+        Gate::forUser(Auth::guard('admin')->user())->authorize('edit_user');
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
@@ -58,7 +66,7 @@ class UserController extends Controller
             'email' => $validated['email'],
         ]);
 
-        if (! empty($validated['password'])) {
+        if (!empty($validated['password'])) {
             $user->update(['password' => Hash::make($validated['password'])]);
         }
 
@@ -70,6 +78,8 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
+        Gate::forUser(Auth::guard('admin')->user())->authorize('delete_user');
+
         $user->delete();
 
         return redirect()->route('backend.users.index')->with('success', 'User deleted successfully.');

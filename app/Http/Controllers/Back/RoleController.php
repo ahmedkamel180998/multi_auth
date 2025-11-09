@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -16,8 +18,9 @@ class RoleController extends Controller
     public function index(): View
     {
         $roles = Role::latest()->get();
+        $permissions = Permission::where('guard_name', 'admin')->get();
 
-        return view('backend.roles', compact('roles'));
+        return view('backend.roles', get_defined_vars());
     }
 
     /**
@@ -26,10 +29,15 @@ class RoleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:roles'],
+            'name' => ['required', 'string', Rule::unique('roles', 'name')],
+            'permissions' => ['nullable'],
         ]);
-
-        Role::create(['name' => $validated['name']]);
+        $role = Role::create(['name' => $validated['name'], 'guard_name' => 'admin']);
+        if (isset($validated['permissions'])) {
+            foreach ($validated['permissions'] as $permission => $value) {
+                $role->givePermissionTo($permission);
+            }
+        }
 
         return redirect()->route('backend.roles.index')->with('success', 'Role created successfully.');
     }
@@ -40,10 +48,19 @@ class RoleController extends Controller
     public function update(Request $request, Role $role): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:roles,name,'.$role->id],
+            'name' => ['required', 'string', 'max:255', Rule::unique('roles', 'name')->ignore($role->id)],
+            'permissions' => ['nullable'],
         ]);
 
         $role->update(['name' => $validated['name']]);
+
+        // Sync permissions
+        $role->syncPermissions([]);
+        if (isset($validated['permissions'])) {
+            foreach ($validated['permissions'] as $permission => $value) {
+                $role->givePermissionTo($permission);
+            }
+        }
 
         return redirect()->route('backend.roles.index')->with('success', 'Role updated successfully.');
     }
@@ -54,6 +71,7 @@ class RoleController extends Controller
     public function destroy(Role $role): RedirectResponse
     {
         $role->delete();
+        $role->syncPermissions([]);
 
         return redirect()->route('backend.roles.index')->with('success', 'Role deleted successfully.');
     }
